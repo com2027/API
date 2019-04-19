@@ -1,5 +1,7 @@
 #travis yml
 language: node_js
+node_js:
+  - "node"
 sudo: required
 before_install:
   - npm install -g node-gyp
