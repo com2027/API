@@ -1,0 +1,16 @@
+#travis yml
+language: node_js
+node_js:
+  - "node"
+sudo: required
+before_install:
+  - npm install -g node-gyp
+before_script:
+  - npm install -g sequelize-cli
+  - sequelize db:migrate --env test
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-5
