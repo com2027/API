@@ -4,7 +4,7 @@
   "description": "Web API for the bounty hunter backend",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV=test mocha",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
@@ -34,5 +34,10 @@
     "sequelize-cli": "^5.4.0",
     "sqlite3": "^4.0.6",
     "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "mocha": "^6.1.3"
   }
 }

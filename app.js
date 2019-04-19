@@ -49,3 +49,5 @@ app.get('*', function(req, res){
 
 //start express listening on the port and just log it to the console.
 app.listen(PORT, () => console.log(`Bounty Hunter API listening on port ${PORT}!`))
+
+module.exports = app;

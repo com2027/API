@@ -16,7 +16,6 @@ router.get('/:id/followers', checkAuth, (req,res) => {
   //search for friends where the sender is the id in url and include the Users model
   db.Friends.findAll({where:{receiver : req.params.id}, include: [{model: db.User, as: 'followedBy'}]})
     .then((users)=>{
-      console.log(users);
         res.status(200).json({users: users}); //if we could get the users followers then return the followers
     })
     .catch(() => { //if we couldn't connect to the db then throw an error
