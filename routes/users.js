@@ -132,7 +132,7 @@ router.post('/resetpassword/:token', (req,res) => {
               res.status(200).json({message:"Password reset"});
             }else{ //if user is not found
               //send a 404 error
-              res.status(401).json({error:"User not found"});
+              res.status(404).json({error:"User not found"});
             }
           })
           .catch(() => { // If db throws an error then handle it
@@ -205,7 +205,6 @@ router.get('/search/:username', checkAuth, (req,res) => {
 
 //Update user route
 router.put('/:id', checkAuth, checkUserMatch, (req,res) => {
-  console.log(req.body.password);
   //search for user in database where id is the id provided
   db.User.findAll({where:{id:req.params.id}})
     .then((users) => {
@@ -280,7 +279,6 @@ router.put('/:id/changepassword', checkAuth, checkUserMatch, (req,res) => {
 
 //Delete user route
 router.delete('/:id', checkAuth, checkUserMatch, (req,res) => {
-  console.log(req.body);
   //search for user in database where id is the id provided
   db.User.findAll({where:{id:req.params.id}})
     .then((users) => {
@@ -303,8 +301,8 @@ router.delete('/:id', checkAuth, checkUserMatch, (req,res) => {
               res.status(401).json({error:"Authorization failed"});
             }
           })
-          .catch(() => { //if we can't hash the password
-          console.log("HASH ERROR: " + err)
+          .catch((err) => { //if we can't hash the password
+            // console.log("HASH ERROR: " + err)
             res.status(500).json({error:"Unable to delete user"});
           });
       }else{ //if list is empty
