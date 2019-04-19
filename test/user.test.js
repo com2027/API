@@ -18,7 +18,7 @@ chai.use(chaiHttp);
 chai.should();
 
 describe("User", () => {
-  
+
   //before each test for the users function
   beforeEach(function(){
     //delete all data
@@ -66,16 +66,12 @@ describe("User", () => {
             done();
         });
       })
-      .catch((err) => {
-        console.log(err);
-      })
     });
 
     it('should not login with an invalid username', (done) => {
     //  console.log(Users.user1);
       createUser(Users.user1).then(() => {
         var LoginCredentials = {username: "notauser", password: Users.user1.password};
-        // console.log("LOGIN: " + )
         chai.request(app)
           .post('/users/login')
           .set('content-type', 'application/json')
@@ -135,6 +131,35 @@ describe("User", () => {
 
   });
 
+  describe("Update User", () => {
+    it("shouldn't allow a user to update another user", (done) => {
+      //get users from test data
+      const user1 = Users.user1;
+      const user2 = Users.user2;
+      //create user 1
+      createUser(user1)
+        .then(function(created_user1){
+          //create user 2
+          createUser(user2)
+            .then(function(created_user2){
+                //log in user 1
+                const token = loginUser(created_user1);
+                //try to update user 2
+                chai.request(app)
+                  .put('/users/' + created_user2.id)
+                  .set('Authorization', 'Bearer ' + token)
+                  .end((err,res) => {
+                    res.should.have.status(401);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('error');
+                    res.body.error.should.equal("Authorization failed");
+                    done();
+                  });
+            });
+        })
+    });
+
+  });
 
 
 
