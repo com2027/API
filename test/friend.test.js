@@ -35,7 +35,7 @@ describe("Friends", () => {
   });
 
   describe("Add Friends", () =>{
-    it('get the list of players that user1 is following', (done) => {
+    it('should get the list of players that user1 is following', (done) => {
       //load user test data
       const user1 = Users.user1;
       const user2 = Users.user2;
