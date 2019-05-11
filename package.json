@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/com2027/API#readme",
   "dependencies": {
+    "@pusher/push-notifications-server": "^1.2.0",
     "bcrypt": "^3.0.5",
     "express": "^4.16.4",
     "hogan-express": "^0.5.2",
@@ -38,6 +39,6 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
-    "mocha": "^6.1.3"
+    "mocha": "^6.1.4"
   }
 }
