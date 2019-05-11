@@ -17,7 +17,7 @@ const checkUserMatch = require('../middleware/check-matching-user');
 
 //get the beams client for pusher
 const beamsClient = new PushNotifications({
-  instanceId: '271b1eac-1469-406c-97c8-632da3eb6367',
+  instanceId: '8ad9b796-b0fe-4936-83bd-cde6d460f800',
   secretKey: String(process.env.PUSHER_KEY)
 });
 
