@@ -4,6 +4,7 @@ const router = express.Router();
 //import the database models.
 const db = require('../models');
 const Sequelize = require('sequelize');
+const PushNotifications = require('@pusher/push-notifications-server');
 
 //import bcrypt and jsonwebtoken and nodemailer
 const bcrypt = require('bcrypt');
@@ -13,6 +14,12 @@ const mailer = require('../lib/mailer');
 //import useful middleware
 const checkAuth = require('../middleware/check-auth');
 const checkUserMatch = require('../middleware/check-matching-user');
+
+//get the beams client for pusher
+const beamsClient = new PushNotifications({
+  instanceId: '271b1eac-1469-406c-97c8-632da3eb6367',
+  secretKey: String(process.env.PUSHER_KEY)
+});
 
 //ROUTES BEGIN HERE
 ////////////////////////////////////////////////////
@@ -201,7 +208,11 @@ router.get('/search/:username', checkAuth, (req,res) => {
     })
 });
 
-
+//Route to grant user their beam authentication token
+router.get('/pusher/beams-auth', checkAuth, (req,res)=> {
+  const beamsToken = beamsClient.generateToken(req.userData.id);
+  res.status(200).json(beamsToken);
+});
 
 //Update user route
 router.put('/:id', checkAuth, checkUserMatch, (req,res) => {
