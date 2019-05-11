@@ -16,6 +16,10 @@ const userRoutes = require('./routes/users');
 const friendsRoutes = require('./routes/friends');
 const statsRoutes = require('./routes/stats');
 
+if(process.env.NODE_ENV == 'development'){
+  require('dotenv').config()
+}
+
 // to support JSON-encoded bodies
 app.use(express.json());
 // to support URL-encoded bodies
